@@ -17,7 +17,7 @@ for docker_file in ${docker_files[@]}; do
     fi
     docker pull $docker_tag || echo
     docker build --pull --cache-from $docker_tag ci/docker/manylinux -t $docker_tag -f ${docker_file}
-    if [[ -z "$CIRCLE_PR_NUMBER" ]]; then docker push $docker_tag; fi
+    #if [[ -z "$CIRCLE_PR_NUMBER" ]]; then docker push $docker_tag; fi
     docker run --rm -v `pwd`:/io $docker_tag /io/ci/build-wheels.sh
     ls wheelhouse/
 done
